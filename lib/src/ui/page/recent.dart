@@ -13,6 +13,7 @@ class _RecentPageState extends State<RecentPage> {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       body: SafeArea(
         child: Text("Recent Page  "),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cubit_project/src/res/colors.dart';
 import 'package:flutter_cubit_project/src/ui/page/news.dart';
 import 'package:flutter_cubit_project/src/ui/page/recent.dart';
 import 'package:flutter_cubit_project/src/ui/page/search.dart';
+import 'package:flutter_cubit_project/src/vm/news.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,6 +21,13 @@ class _MyHomePageState extends State<HomePage> {
   ];
 
   var _selectIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    final newsViewModel = context.read<NewsViewModel>();
+    newsViewModel.getSearch(searchWord: "lg우승");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +51,7 @@ class _MyHomePageState extends State<HomePage> {
           ),
         ],
         currentIndex: _selectIndex,
-        selectedItemColor: colorScheme.primaryMain ,
+        selectedItemColor: colorScheme.primaryMain,
         onTap: (index) {
           _selectIndex = index;
           setState(() {});
