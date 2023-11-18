@@ -1,0 +1,29 @@
+name: flutter_cubit_project
+description: Use Cubit Project
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.2 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  logger: ^1.4.0
+  flutter_bloc: ^8.1.2
+  freezed: ^2.4.3
+  dio: ^4.0.4
+  retrofit: ^3.3.1
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+  build_runner: ^2.3.3
+
+flutter:
+  uses-material-design: true
