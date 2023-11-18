@@ -8,10 +8,10 @@ part 'search.g.dart';
 @freezed
 class WebDocumentData with _$WebDocumentData {
   const factory WebDocumentData({
-    required String contents,
-    required String datetime,
-    required String title,
-    required String url
+    required final String contents,
+    required final String datetime,
+    required final String title,
+    required final String url
   }) = _WebDocumentData;
 
   factory WebDocumentData.fromJson(Map<String, dynamic> json) => _$WebDocumentDataFromJson(json);
@@ -20,19 +20,19 @@ class WebDocumentData with _$WebDocumentData {
 @freezed
 class ImageDocumentData with _$ImageDocumentData {
   const factory ImageDocumentData({
-    required String collection,
+    required final String collection,
     @JsonKey(name: "thumbnail_url")
-    required String thumbnailUrl,
+    required final String thumbnailUrl,
     @JsonKey(name: "image_url")
-    required String imageUrl,
-    required int width,
-    required int height,
+    required final String imageUrl,
+    required final int width,
+    required final int height,
     @JsonKey(name: "display_sitename")
-    required String displaySiteName,
+    required final String displaySiteName,
     @JsonKey(name: "doc_url")
-    required String docUrl,
+    required final String docUrl,
     @JsonKey(name: "datetime")
-    required String dateTime
+    required final String dateTime
   }) = _ImageDocumentData;
 
   factory ImageDocumentData.fromJson(Map<String, dynamic> json) => _$ImageDocumentDataFromJson(json);

@@ -7,17 +7,17 @@ part 'common.g.dart';
 @freezed
 class ErrorMeta with _$ErrorMeta {
   const factory ErrorMeta({
-    required String errorType,
-    required String message,
+    required final String errorType,
+    required final String message,
   }) = _ErrorMeta;
 }
 
 @freezed
 class Meta with _$Meta {
   const factory Meta({
-    @JsonKey(name: "is_end") required bool isEnd,
-    @JsonKey(name: "pageable_count") required int pageableCount,
-    @JsonKey(name: "total_count") required int totalCount,
+    @JsonKey(name: "is_end") required final bool isEnd,
+    @JsonKey(name: "pageable_count") required final int pageableCount,
+    @JsonKey(name: "total_count") required final int totalCount,
   }) = _Meta;
 
   factory Meta.fromJson(Map<String, dynamic> json) => _$MetaFromJson(json);
