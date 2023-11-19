@@ -23,13 +23,6 @@ class _MyHomePageState extends State<HomePage> {
   var _selectIndex = 0;
 
   @override
-  void initState() {
-    super.initState();
-    final newsViewModel = context.read<NewsViewModel>();
-    newsViewModel.getSearch(searchWord: "lg우승");
-  }
-
-  @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 

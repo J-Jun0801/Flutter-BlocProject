@@ -2,21 +2,22 @@ import 'package:flutter_cubit_project/src/repository/remote/models/common.dart';
 import 'package:flutter_cubit_project/src/repository/remote/models/search.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'news.freezed.dart';
+part 'search.freezed.dart';
 
-enum NewsStatus {
+enum SearchStatus {
   initial,
   loadingData,
   loadedData,
+  noDataLoaded,
   failure,
 }
 
 @freezed
-class NewsState with _$NewsState {
-  const factory NewsState({
-    required NewsStatus status,
+class SearchState with _$SearchState {
+  const factory SearchState({
+    required SearchStatus status,
     String? errorMessage,
-    List<ImageDocumentData>? newsData,
-    Meta? newsMeta,
-  }) = _NewsState;
+    List<WebDocumentData>? searchData,
+    Meta? searchMeta,
+  }) = _SearchState;
 }

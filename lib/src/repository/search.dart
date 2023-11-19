@@ -30,4 +30,22 @@ class SearchRepository {
       throw SearchFailure('오류 발생:${e.toString()}');
     }
   }
+
+  Future<BaseResponse<List<ImageDocumentData>>> getImageSearch({
+    required int page,
+    required int size,
+    required String sort,
+    required String query,
+  }) async {
+    try {
+      final data = await _searchService.getImageSearch(page, size, sort, query);
+
+      return data;
+    } on DioError catch (e) {
+      final errorMeta = RestHelper().getErrorMeta(e);
+      throw SearchFailure("${errorMeta.errorType} ${errorMeta.message}");
+    } catch (e) {
+      throw SearchFailure('오류 발생:${e.toString()}');
+    }
+  }
 }

@@ -10,19 +10,14 @@ class NewsViewModel extends Cubit<NewsState> {
 
   final SearchRepository _searchRepository;
 
-  void getSearch({required String searchWord}) async {
+  void getImageSearch({required String searchWord}) async {
     try {
       emit(state.copyWith(status: NewsStatus.loadingData));
 
-      final resp = await _searchRepository.getSearch(page: 1, size: 20, sort: "", query: searchWord);
+      final resp = await _searchRepository.getImageSearch(page: 1, size: 30, sort: "accuracy", query: searchWord);
+      final filterNewsData = resp.documents.where((element) => element.imageUrl.contains("https://")).toList();
 
-      // emit(
-      //   state.copyWith(
-      //     status: HomeStatus.loadedData,
-      //     listMaintenanceOrder: resultList,
-      //     metaMaintenanceOrder: const MetaList(currentPage: 0, totalPage: 2, totalCount: 40),
-      //   ),
-      // );
+      emit(state.copyWith(status: NewsStatus.loadedData, newsData: filterNewsData, newsMeta: resp.meta));
     } on SearchFailure catch (error) {
       emit(state.copyWith(status: NewsStatus.failure, errorMessage: error.message));
     } on Exception catch (error) {

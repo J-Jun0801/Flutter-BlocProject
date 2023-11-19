@@ -18,6 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$NewsState {
   NewsStatus get status => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
+  List<ImageDocumentData>? get newsData => throw _privateConstructorUsedError;
+  Meta? get newsMeta => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NewsStateCopyWith<NewsState> get copyWith =>
@@ -29,7 +31,13 @@ abstract class $NewsStateCopyWith<$Res> {
   factory $NewsStateCopyWith(NewsState value, $Res Function(NewsState) then) =
       _$NewsStateCopyWithImpl<$Res, NewsState>;
   @useResult
-  $Res call({NewsStatus status, String? errorMessage});
+  $Res call(
+      {NewsStatus status,
+      String? errorMessage,
+      List<ImageDocumentData>? newsData,
+      Meta? newsMeta});
+
+  $MetaCopyWith<$Res>? get newsMeta;
 }
 
 /// @nodoc
@@ -47,6 +55,8 @@ class _$NewsStateCopyWithImpl<$Res, $Val extends NewsState>
   $Res call({
     Object? status = null,
     Object? errorMessage = freezed,
+    Object? newsData = freezed,
+    Object? newsMeta = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -57,7 +67,27 @@ class _$NewsStateCopyWithImpl<$Res, $Val extends NewsState>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      newsData: freezed == newsData
+          ? _value.newsData
+          : newsData // ignore: cast_nullable_to_non_nullable
+              as List<ImageDocumentData>?,
+      newsMeta: freezed == newsMeta
+          ? _value.newsMeta
+          : newsMeta // ignore: cast_nullable_to_non_nullable
+              as Meta?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MetaCopyWith<$Res>? get newsMeta {
+    if (_value.newsMeta == null) {
+      return null;
+    }
+
+    return $MetaCopyWith<$Res>(_value.newsMeta!, (value) {
+      return _then(_value.copyWith(newsMeta: value) as $Val);
+    });
   }
 }
 
@@ -69,7 +99,14 @@ abstract class _$$NewsStateImplCopyWith<$Res>
       __$$NewsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({NewsStatus status, String? errorMessage});
+  $Res call(
+      {NewsStatus status,
+      String? errorMessage,
+      List<ImageDocumentData>? newsData,
+      Meta? newsMeta});
+
+  @override
+  $MetaCopyWith<$Res>? get newsMeta;
 }
 
 /// @nodoc
@@ -85,6 +122,8 @@ class __$$NewsStateImplCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? errorMessage = freezed,
+    Object? newsData = freezed,
+    Object? newsMeta = freezed,
   }) {
     return _then(_$NewsStateImpl(
       status: null == status
@@ -95,6 +134,14 @@ class __$$NewsStateImplCopyWithImpl<$Res>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      newsData: freezed == newsData
+          ? _value._newsData
+          : newsData // ignore: cast_nullable_to_non_nullable
+              as List<ImageDocumentData>?,
+      newsMeta: freezed == newsMeta
+          ? _value.newsMeta
+          : newsMeta // ignore: cast_nullable_to_non_nullable
+              as Meta?,
     ));
   }
 }
@@ -102,16 +149,33 @@ class __$$NewsStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$NewsStateImpl implements _NewsState {
-  const _$NewsStateImpl({required this.status, this.errorMessage});
+  const _$NewsStateImpl(
+      {required this.status,
+      this.errorMessage,
+      final List<ImageDocumentData>? newsData,
+      this.newsMeta})
+      : _newsData = newsData;
 
   @override
   final NewsStatus status;
   @override
   final String? errorMessage;
+  final List<ImageDocumentData>? _newsData;
+  @override
+  List<ImageDocumentData>? get newsData {
+    final value = _newsData;
+    if (value == null) return null;
+    if (_newsData is EqualUnmodifiableListView) return _newsData;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  final Meta? newsMeta;
 
   @override
   String toString() {
-    return 'NewsState(status: $status, errorMessage: $errorMessage)';
+    return 'NewsState(status: $status, errorMessage: $errorMessage, newsData: $newsData, newsMeta: $newsMeta)';
   }
 
   @override
@@ -121,11 +185,15 @@ class _$NewsStateImpl implements _NewsState {
             other is _$NewsStateImpl &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+                other.errorMessage == errorMessage) &&
+            const DeepCollectionEquality().equals(other._newsData, _newsData) &&
+            (identical(other.newsMeta, newsMeta) ||
+                other.newsMeta == newsMeta));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, errorMessage);
+  int get hashCode => Object.hash(runtimeType, status, errorMessage,
+      const DeepCollectionEquality().hash(_newsData), newsMeta);
 
   @JsonKey(ignore: true)
   @override
@@ -137,12 +205,18 @@ class _$NewsStateImpl implements _NewsState {
 abstract class _NewsState implements NewsState {
   const factory _NewsState(
       {required final NewsStatus status,
-      final String? errorMessage}) = _$NewsStateImpl;
+      final String? errorMessage,
+      final List<ImageDocumentData>? newsData,
+      final Meta? newsMeta}) = _$NewsStateImpl;
 
   @override
   NewsStatus get status;
   @override
   String? get errorMessage;
+  @override
+  List<ImageDocumentData>? get newsData;
+  @override
+  Meta? get newsMeta;
   @override
   @JsonKey(ignore: true)
   _$$NewsStateImplCopyWith<_$NewsStateImpl> get copyWith =>
