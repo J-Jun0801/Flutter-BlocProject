@@ -6,7 +6,11 @@ import 'package:flutter_cubit_project/src/res/text_themes.dart';
 import 'package:flutter_cubit_project/src/vm/models/search.dart';
 import 'package:flutter_cubit_project/src/vm/recent.dart';
 import 'package:flutter_cubit_project/src/vm/states/recent.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'detail_content.dart';
+import 'home.dart';
 
 class RecentPage extends StatefulWidget {
   const RecentPage({Key? key}) : super(key: key);
@@ -35,15 +39,22 @@ class _RecentPageState extends State<RecentPage> {
         itemBuilder: (BuildContext context, int index) {
           final recentModel = recentModels[index];
           return GestureDetector(
-              onTap: () {},
-              child: recentModel.type == RecentViewType.Image
-                  ? GestureDetector(
-                      onTap: () {
-                        launchUrl(Uri.parse(recentModel.docUrl!));
-                      },
-                      child: _makeImageItem(recentModel: recentModel),
-                    )
-                  : _makeTextItem(recentModel: recentModel));
+            onTap: () {},
+            child: recentModel.type == RecentViewType.Image
+                ? GestureDetector(
+                    onTap: () {
+                      launchUrl(Uri.parse(recentModel.docUrl!));
+                    },
+                    child: _makeImageItem(recentModel: recentModel),
+                  )
+                : GestureDetector(
+                    onTap: () {
+                      GoRouter.of(context)
+                          .push("${HomePage.routePath()}${DetailContentPage.routePath()}", extra: recentModel);
+                    },
+                    child: _makeTextItem(recentModel: recentModel),
+                  ),
+          );
         },
       ),
     );

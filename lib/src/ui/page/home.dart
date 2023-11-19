@@ -9,6 +9,10 @@ import 'package:flutter_cubit_project/src/vm/news.dart';
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  static String routePath() {
+    return "/";
+  }
+
   @override
   State<HomePage> createState() => _MyHomePageState();
 }

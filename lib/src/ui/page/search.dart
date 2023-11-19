@@ -3,9 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cubit_project/src/repository/remote/models/search.dart';
 import 'package:flutter_cubit_project/src/res/colors.dart';
 import 'package:flutter_cubit_project/src/res/text_themes.dart';
+import 'package:flutter_cubit_project/src/ui/page/detail_content.dart';
+import 'package:flutter_cubit_project/src/ui/page/home.dart';
 import 'package:flutter_cubit_project/src/vm/models/search.dart';
 import 'package:flutter_cubit_project/src/vm/recent.dart';
 import 'package:flutter_cubit_project/src/vm/states/search.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../common/logger.dart';
 import '../../vm/search.dart';
@@ -105,13 +108,15 @@ class _SearchPageState extends State<SearchPage> {
                   return GestureDetector(
                     onTap: () {
                       final recentViewModel = context.read<RecentViewModel>();
-                      recentViewModel.addRecentModel(
-                        recentModel: RecentModel(
-                          type: RecentViewType.Text,
-                          title: item.title ,
-                          contents: item.contents,
-                        ),
+                      final recentModel = RecentModel(
+                        type: RecentViewType.Text,
+                        title: item.title,
+                        contents: item.contents,
                       );
+                      recentViewModel.addRecentModel(recentModel: recentModel);
+
+                      GoRouter.of(context).push(
+                          "${HomePage.routePath()}${DetailContentPage.routePath()}", extra: recentModel);
                     },
                     child: _makeSearchItem(documentData: item),
                   );
@@ -132,8 +137,12 @@ class _SearchPageState extends State<SearchPage> {
     final title = documentData.title.replaceAll(RegExp(r'<[^>]*>|&[^;]+;'), ' ');
     final content = documentData.contents.replaceAll(RegExp(r'<[^>]*>|&[^;]+;'), ' ');
 
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme
+        .of(context)
+        .colorScheme;
+    final textTheme = Theme
+        .of(context)
+        .textTheme;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
