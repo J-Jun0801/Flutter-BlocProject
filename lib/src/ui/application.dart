@@ -4,6 +4,7 @@ import 'package:flutter_cubit_project/src/repository/search.dart';
 import 'package:flutter_cubit_project/src/vm/news.dart';
 import 'package:flutter_cubit_project/src/vm/states/news.dart';
 
+import '../vm/recent.dart';
 import '../vm/search.dart';
 import 'page/home.dart';
 
@@ -17,6 +18,7 @@ class Application extends StatelessWidget {
         RepositoryProvider(create: (_) => SearchRepository()),
         BlocProvider(create: (context) => NewsViewModel(context.read<SearchRepository>())),
         BlocProvider(create: (context) => SearchViewModel(context.read<SearchRepository>())),
+        BlocProvider(create: (context) => RecentViewModel()),
       ],
       child: const MaterialApp(
         title: 'Flutter Demo',

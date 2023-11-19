@@ -6,7 +6,9 @@ import 'package:flutter_cubit_project/src/repository/remote/models/search.dart';
 import 'package:flutter_cubit_project/src/res/colors.dart';
 import 'package:flutter_cubit_project/src/res/text_themes.dart';
 import 'package:flutter_cubit_project/src/ui/widgets/global_ui.dart';
+import 'package:flutter_cubit_project/src/vm/models/search.dart';
 import 'package:flutter_cubit_project/src/vm/news.dart';
+import 'package:flutter_cubit_project/src/vm/recent.dart';
 import 'package:flutter_cubit_project/src/vm/states/news.dart';
 
 import '../../common/logger.dart';
@@ -35,7 +37,6 @@ class _NewsPageState extends State<NewsPage> {
       listeners: [
         BlocListener<NewsViewModel, NewsState>(
           listener: (context, state) {
-
             switch (state.status) {
               case NewsStatus.loadingData:
                 showLoading(context: context);
@@ -77,7 +78,20 @@ class _NewsPageState extends State<NewsPage> {
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemBuilder: (BuildContext context, int index) {
           final document = documents[index];
-          return _makeNewsItem(document: document);
+          return GestureDetector(
+            onTap: () {
+              final recentViewModel = context.read<RecentViewModel>();
+              recentViewModel.addRecentModel(
+                recentModel: RecentModel(
+                  type: RecentViewType.Image,
+                  imageUrl: document.imageUrl,
+                  title: document.displaySiteName,
+                  docUrl: document.docUrl,
+                ),
+              );
+            },
+            child: _makeNewsItem(document: document),
+          );
         },
       ),
     );

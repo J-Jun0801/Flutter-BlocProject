@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cubit_project/src/repository/remote/models/search.dart';
 import 'package:flutter_cubit_project/src/res/colors.dart';
 import 'package:flutter_cubit_project/src/res/text_themes.dart';
+import 'package:flutter_cubit_project/src/vm/models/search.dart';
+import 'package:flutter_cubit_project/src/vm/recent.dart';
 import 'package:flutter_cubit_project/src/vm/states/search.dart';
 
 import '../../common/logger.dart';
@@ -38,7 +40,6 @@ class _SearchPageState extends State<SearchPage> {
       listeners: [
         BlocListener<SearchViewModel, SearchState>(
           listener: (context, state) {
-
             switch (state.status) {
               case SearchStatus.loadingData:
                 showLoading(context: context);
@@ -101,7 +102,19 @@ class _SearchPageState extends State<SearchPage> {
                 physics: const AlwaysScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   final item = documentData.elementAt(index);
-                  return _makeSearchItem(documentData: item);
+                  return GestureDetector(
+                    onTap: () {
+                      final recentViewModel = context.read<RecentViewModel>();
+                      recentViewModel.addRecentModel(
+                        recentModel: RecentModel(
+                          type: RecentViewType.Text,
+                          title: item.title ,
+                          contents: item.contents,
+                        ),
+                      );
+                    },
+                    child: _makeSearchItem(documentData: item),
+                  );
                 },
                 separatorBuilder: (BuildContext context, int index) {
                   return const SizedBox(height: 10);
