@@ -10,6 +10,7 @@ import 'package:flutter_cubit_project/src/vm/models/search.dart';
 import 'package:flutter_cubit_project/src/vm/news.dart';
 import 'package:flutter_cubit_project/src/vm/recent.dart';
 import 'package:flutter_cubit_project/src/vm/states/news.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../common/logger.dart';
 
@@ -89,6 +90,8 @@ class _NewsPageState extends State<NewsPage> {
                   docUrl: document.docUrl,
                 ),
               );
+
+              launchUrl(Uri.parse(document.docUrl));
             },
             child: _makeNewsItem(document: document),
           );

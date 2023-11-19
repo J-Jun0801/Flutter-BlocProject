@@ -17,6 +17,7 @@ dependencies:
   dio: ^4.0.4
   retrofit: ^3.3.1
   json_annotation: ^4.8.1
+  url_launcher: ^6.2.1
 
 dev_dependencies:
   flutter_test:

@@ -6,6 +6,7 @@ import 'package:flutter_cubit_project/src/res/text_themes.dart';
 import 'package:flutter_cubit_project/src/vm/models/search.dart';
 import 'package:flutter_cubit_project/src/vm/recent.dart';
 import 'package:flutter_cubit_project/src/vm/states/recent.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RecentPage extends StatefulWidget {
   const RecentPage({Key? key}) : super(key: key);
@@ -36,7 +37,12 @@ class _RecentPageState extends State<RecentPage> {
           return GestureDetector(
               onTap: () {},
               child: recentModel.type == RecentViewType.Image
-                  ? _makeImageItem(recentModel: recentModel)
+                  ? GestureDetector(
+                      onTap: () {
+                        launchUrl(Uri.parse(recentModel.docUrl!));
+                      },
+                      child: _makeImageItem(recentModel: recentModel),
+                    )
                   : _makeTextItem(recentModel: recentModel));
         },
       ),
