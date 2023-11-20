@@ -11,6 +11,7 @@ import 'package:flutter_cubit_project/src/vm/models/search.dart';
 import 'package:flutter_cubit_project/src/vm/news.dart';
 import 'package:flutter_cubit_project/src/vm/recent.dart';
 import 'package:flutter_cubit_project/src/vm/states/news.dart';
+import 'package:image_network/image_network.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../common/logger.dart';
@@ -27,7 +28,7 @@ class _NewsPageState extends State<NewsPage> {
   void initState() {
     super.initState();
     final newsViewModel = context.read<NewsViewModel>();
-    newsViewModel.getImageSearch(searchWord: "한국시리즈 야구 우승");
+    newsViewModel.getImageSearch(searchWord: "한국시리즈 SSG 우승");
   }
 
   @override
@@ -82,16 +83,7 @@ class _NewsPageState extends State<NewsPage> {
           final document = documents[index];
           return GestureDetector(
             onTap: () {
-              final recentViewModel = context.read<RecentViewModel>();
-              recentViewModel.addRecentModel(
-                recentModel: RecentModel(
-                  type: RecentViewType.Image,
-                  imageUrl: document.imageUrl,
-                  title: document.displaySiteName,
-                  docUrl: document.docUrl,
-                ),
-              );
-
+              _addRecentModel(document: document);
               launchUrl(Uri.parse(document.docUrl));
             },
             child: _makeNewsItem(document: document),
@@ -117,19 +109,25 @@ class _NewsPageState extends State<NewsPage> {
             alignment: Alignment.bottomLeft,
             children: [
               Center(
-                child: Image.network(
-                  document.imageUrl,
-                  fit: BoxFit.fitHeight,
-                  frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
-                    if (wasSynchronouslyLoaded) {
-                      return child;
-                    }
-                    return frame != null ? child : Text("loading..");
-                  },
-                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                    return Text("error",
-                      style: textTheme.captionC1Bold.copyWith(color: colorScheme.primaryWhite),
-                    );
+                child: ImageNetwork(
+                  image: document.imageUrl,
+                  width: width,
+                  height: width * 0.75,
+                  duration: 0,
+                  curve: Curves.easeIn,
+                  onPointer: true,
+                  debugPrint: false,
+                  fullScreen: false,
+                  fitAndroidIos: BoxFit.fitHeight,
+                  fitWeb: BoxFitWeb.contain,
+                  onLoading: CircularProgressIndicator(color: colorScheme.primaryMain),
+                  onError: const Icon(
+                    Icons.error,
+                    color: Colors.red,
+                  ),
+                  onTap: () async {
+                    _addRecentModel(document: document);
+                    await launchUrl(Uri.parse(document.docUrl));
                   },
                 ),
               ),
@@ -144,6 +142,18 @@ class _NewsPageState extends State<NewsPage> {
           ),
         );
       },
+    );
+  }
+
+  void _addRecentModel({required ImageDocumentData document}) {
+    final recentViewModel = context.read<RecentViewModel>();
+    recentViewModel.addRecentModel(
+      recentModel: RecentModel(
+        type: RecentViewType.Image,
+        imageUrl: document.imageUrl,
+        title: document.displaySiteName,
+        docUrl: document.docUrl,
+      ),
     );
   }
 }

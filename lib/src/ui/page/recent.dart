@@ -7,6 +7,7 @@ import 'package:flutter_cubit_project/src/vm/models/search.dart';
 import 'package:flutter_cubit_project/src/vm/recent.dart';
 import 'package:flutter_cubit_project/src/vm/states/recent.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_network/image_network.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'detail_content.dart';
@@ -75,21 +76,27 @@ class _RecentPageState extends State<RecentPage> {
           child: Stack(
             alignment: Alignment.bottomLeft,
             children: [
-              Center(
-                child: Image(
-                  image: NetworkImage(recentModel.imageUrl!),
-                  fit: BoxFit.fitHeight,
-                  frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
-                    if (wasSynchronouslyLoaded) {
-                      return child;
-                    }
-                    return frame != null ? child : Text("loading..");
-                  },
-                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                    return Text("error");
-                  },
+              // Center(
+              //   child:
+              ImageNetwork(
+                image: recentModel.imageUrl!,
+                width: width,
+                height: width * 0.75,
+                duration: 0,
+                curve: Curves.easeIn,
+                debugPrint: true,
+                fitAndroidIos: BoxFit.fitHeight,
+                fitWeb: BoxFitWeb.contain,
+                onLoading: CircularProgressIndicator(color: colorScheme.primaryMain),
+                onError: const Icon(
+                  Icons.error,
+                  color: Colors.red,
                 ),
+                onTap: () async {
+                  await launchUrl(Uri.parse(recentModel.docUrl!));
+                },
               ),
+              // ),
               Padding(
                 padding: const EdgeInsets.only(left: 10, bottom: 10),
                 child: Text(
