@@ -3,11 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cubit_project/src/common/logger.dart';
 import 'package:flutter_cubit_project/src/repository/remote/rest.dart';
 import 'package:flutter_cubit_project/src/ui/application.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 
 void main() {
   Bloc.observer = const CustomBlocObserver();
   RestHelper().initialize();
 
+  usePathUrlStrategy();
   runApp(const Application());
 }
 

@@ -12,8 +12,8 @@ enum RecentStatus {
 @freezed
 class RecentState with _$RecentState {
   const factory RecentState({
-    required RecentStatus status,
-    List<RecentModel>? recentModels
+    required final RecentStatus status,
+    final List<RecentModel>? recentModels
   }) = _RecentState;
 }
 

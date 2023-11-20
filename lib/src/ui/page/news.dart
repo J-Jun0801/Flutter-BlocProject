@@ -1,3 +1,4 @@
+import 'dart:html';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -116,8 +117,8 @@ class _NewsPageState extends State<NewsPage> {
             alignment: Alignment.bottomLeft,
             children: [
               Center(
-                child: Image(
-                  image: NetworkImage(document.imageUrl),
+                child: Image.network(
+                  document.imageUrl,
                   fit: BoxFit.fitHeight,
                   frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
                     if (wasSynchronouslyLoaded) {
@@ -126,7 +127,9 @@ class _NewsPageState extends State<NewsPage> {
                     return frame != null ? child : Text("loading..");
                   },
                   errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                    return Text("error");
+                    return Text("error",
+                      style: textTheme.captionC1Bold.copyWith(color: colorScheme.primaryWhite),
+                    );
                   },
                 ),
               ),

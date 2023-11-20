@@ -5,11 +5,11 @@ part 'search.freezed.dart';
 @freezed
 class RecentModel with _$RecentModel {
   const factory RecentModel({
-    required RecentViewType type,
-    String? imageUrl,
-    String? docUrl,
-    required String title,
-    String? contents,
+    required final RecentViewType type,
+    final String? imageUrl,
+    final String? docUrl,
+    required final String title,
+    final String? contents,
   }) = _RecentModel;
 }
 

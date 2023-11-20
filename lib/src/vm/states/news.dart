@@ -14,9 +14,9 @@ enum NewsStatus {
 @freezed
 class NewsState with _$NewsState {
   const factory NewsState({
-    required NewsStatus status,
-    String? errorMessage,
-    List<ImageDocumentData>? newsData,
-    Meta? newsMeta,
+    required final NewsStatus status,
+    final String? errorMessage,
+    final List<ImageDocumentData>? newsData,
+    final Meta? newsMeta,
   }) = _NewsState;
 }

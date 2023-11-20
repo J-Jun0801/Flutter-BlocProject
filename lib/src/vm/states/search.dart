@@ -15,9 +15,9 @@ enum SearchStatus {
 @freezed
 class SearchState with _$SearchState {
   const factory SearchState({
-    required SearchStatus status,
-    String? errorMessage,
-    List<WebDocumentData>? searchData,
-    Meta? searchMeta,
+    required final SearchStatus status,
+    final String? errorMessage,
+    final List<WebDocumentData>? searchData,
+    final Meta? searchMeta,
   }) = _SearchState;
 }
